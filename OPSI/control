@@ -1,29 +1,31 @@
 [Package]
 version: 1
-depends:
-incremental: False
+depends: 
 
 [Product]
 type: localboot
 id: teska-mblock5
 name: teska-mblock5
-description:
-advice:
-version: 5.1.0
+description: Installiert mblock
+advice: 
+version: 5.3.5
 priority: 0
 licenseRequired: False
-productClasses:
+productClasses: 
 setupScript: setup.opsiscript
 uninstallScript: uninstall.opsiscript
-updateScript:
-alwaysScript:
-onceScript:
-customScript:
-userLoginScript:
+updateScript: 
+alwaysScript: 
+onceScript: 
+customScript: 
+userLoginScript: 
 
-[Changelog]
-teska-mblock5 (V5.1.0-1) stable; urgency=low
+[ProductProperty]
+type: unicode
+name: desktopicon
+multivalue: False
+editable: True
+description: Löscht Icon auf dem Desktop
+values: ["ja", "nein"]
+default: ["nein"]
 
-        * initial: created by opsi-setup-detector
-
--- opsisetupdetector.exe <info@uib.de>  25.11.2019 14:17:25

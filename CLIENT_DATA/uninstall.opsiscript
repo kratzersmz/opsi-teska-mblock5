@@ -1,63 +1,81 @@
+; ----------------------------------------------------------------
 ; Copyright (c) uib gmbh (www.uib.de)
-; This sourcecode is owned by uib gmbh
+; This sourcecode is owned by uib
 ; and published under the Terms of the General Public License.
 ; credits: http://www.opsi.org/en/credits/
+; ----------------------------------------------------------------
+
 
 [Actions]
-requiredWinstVersion >= "4.11.3.3"
+requiredWinstVersion >= "4.11.4.3"
+ScriptErrorMessages = false
 
 DefVar $SetupType$
-DefVar $MsiId$
-DefVar $LogDir$
+DefVar $ProductId$ 
+DefVar $Setupfile$ 
+DefVar $InstallDir$
+DefVar $MinimumSpace$
 DefVar $ExitCode$
 DefVar $ErrorMsg$
-DefVar $ProductId$
-DefVar $InstallDir$
 DefVar $LicenseRequired$
+DefVar $LicenseKey$
 DefVar $LicensePool$
+DefVar $MsiId$
+DefVar $NsisInstallBatch$
+DefVar $LogDir$
 
-Set $LogDir$ = "%SystemDrive%\tmp"
+Set $LogDir$ = "%opsiLogDir%"
 
-; ----------------------------------------------------------------; ----------------------------------------------------------------
-Set $SetupType$ = "inno"
-; ----------------------------------------------------------------; ----------------------------------------------------------------
 
-; ----------------------------------------------------------------; ----------------------------------------------------------------
-; - Please check the following values                             -
 ; ----------------------------------------------------------------
-Set $ProductId$       = "teska-mblock5"
-Set $InstallDir$      = "C:\Program Files (x86)\mblock5"
+; ----------------------------------------------------------------
+
+; $ProductId$ is the name of the product in opsi, only lower letters, no umlauts, no white spaces, use '-' as a seperator
+Set $ProductId$       = "teska-mblock"
+; the path where we find the product after the installation
+Set $InstallDir$      = "C:\Users\Public\Programs\mblock"
 Set $LicenseRequired$ = "false"
 Set $LicensePool$     = "p_" + $ProductId$
+Set $MinimumSpace$    = "200 MB"
+
+; ----------------------------------------------------------------
 ; ----------------------------------------------------------------
 
-
-comment "Show product picture"
-ShowBitmap "%ScriptPath%\" + $ProductId$ + ".png" $ProductId$
-
-Message "Uninstalling " + $ProductId$ + " ..."
-
-if FileExists("%ScriptPath%\delsub.opsiscript")
-   comment "Start uninstall sub section"
-   Sub "%ScriptPath%\delsub.opsiscript"
+if not(HasMinimumSpace ("%SystemDrive%", $MinimumSpace$))
+   LogError "Not enough space on %SystemDrive%, " + $MinimumSpace$ + " on drive %SystemDrive% needed for " + $ProductId$
+   isFatalError "No Space"
+   ; Stop process and set installation status to failed
+else
+   
+   Message "Uninstall " + $ProductId$ + " ..."
+   
+   
+   comment "Uninstall program"
+   ChangeDirectory "%SCRIPTPATH%"
+   ;----------------------------------------------
+   Files_Remove
+   
+   Message "Erstelle Link auf Desktop"
+   LinkFolder_delete
+   LinkFolder_deleteprogramms
+   
+   ;----------------------------------------------
 endif
 
-if $LicenseRequired$ = "true"
-   comment "Licensing required, free license used"
-   Sub_free_license
-endif
 
-[Sub_free_license]
-comment "License management is enabled and will be used"
+; ----------------------------------------------------------------
+; uninstall section
+; ----------------------------------------------------------------
 
-comment "Trying to free license used for the product"
-DefVar $result$
-Set $result$ = FreeLicense($LicensePool$)
-; If there is an assignment of a license pool to the product, it is possible to use
-; Set $result$ = FreeLicense("", $ProductId$)
-;
-; If there is an assignment of a license pool to a windows software id, it is possible to use
-; DefVar $WindowsSoftwareId$
-; $WindowsSoftwareId$ = "..."
-; set $result$ = FreeLicense("", "", $WindowsSoftwareId$)
+[Files_Remove]
+delete -sf $InstallDir$
 
+[LinkFolder_delete]
+set_basefolder common_desktopdirectory
+set_subfolder ""
+delete_element "mblock"
+
+[LinkFolder_deleteprogramms]
+set_basefolder common_programs
+set_subfolder ""
+delete_element "mblock"

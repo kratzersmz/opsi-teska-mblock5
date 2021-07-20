@@ -3,13 +3,13 @@
 ; and published under the Terms of the General Public License.
 ; credits: http://www.opsi.org/en/credits/
 
-include_append "%ScriptPath%\check_inno_exitcode.opsiscript"
+include_append "%ScriptPath%\check_msi_exitcode.opsiscript"
 
 DefVar $found$
 DefVar $UninstallProgram$
 
 Set $found$     = "false"
-Set $MsiId$     = ''
+Set $MsiId$     = '{38F52FB3-92E5-4153-8631-6A9BB4653702}'
 
 Message "Uninstalling " + $ProductId$ + " ..."
 
@@ -31,7 +31,6 @@ if ($SetupType$ = "msi" or $SetupType$ = "installshieldmsi" or $SetupType$ = "ad
    endif
 endif
 
-
 if ($SetupType$ = "inno")
    Set $UninstallProgram$ = $InstallDir$ + "\unins000.exe"
    if (not($InstallDir$ = '')) and FileExists($UninstallProgram$)
@@ -40,7 +39,6 @@ if ($SetupType$ = "inno")
       sub_check_exitcode
    endif
 endif
-
 
 if ($SetupType$ = "installshield")
    Set $UninstallProgram$ = $InstallDir$ + "\uninstall.exe"
@@ -51,7 +49,6 @@ if ($SetupType$ = "installshield")
    endif
 endif
 
-
 if ($SetupType$ = "nsis")
    Set $UninstallProgram$ = $InstallDir$ + "\uninstall.exe"
    if (not($InstallDir$ = '')) and FileExists($UninstallProgram$)
@@ -60,8 +57,6 @@ if ($SetupType$ = "nsis")
       sub_check_exitcode
    endif
 endif
-
-
 
 if (not($InstallDir$ = '')) and (not($InstallDir$ = "not used"))
    Files_uninstall

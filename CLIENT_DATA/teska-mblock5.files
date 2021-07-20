@@ -1,5 +1,17 @@
-f 'check_inno_exitcode.opsiscript' 1850 789e41f39f57a2ca2151d50068637b8a
-f 'V5.1.0.exe' 158708800 5dfa9b96f49ed57439e14c4c9e39d8e5
-f 'setup.opsiscript' 6658 583449a6fcec648aaffe17950452b1f2
-f 'uninstall.opsiscript' 2221 fd763301bdc87e51c22b953a8ccccf51
-f 'delsub.opsiscript' 2780 9991ff62db0601d37be5e106577ae11e
+f 'teska-makecode.files' 397820 a62402cb09b3a17f7f856576b01b5fad
+d 'mblock' 0 
+f 'mblock/.gitkeep' 0 d41d8cd98f00b204e9800998ecf8427e
+f 'mblock/mblock.zip' 330751475 1be18b92fc5121bbd475367a6120e189
+d 'driver' 0 
+f 'driver/CH341SER.VXD' 20089 be7438420f1da854917f58cad557476d
+f 'driver/CH341SER.CAT' 10935 dbc4f08f8350f0b8ff95420b352b506a
+f 'driver/CH341SER.SYS' 50464 ed9001ef992d89810f060cba66a07fb0
+f 'driver/CH341S98.SYS' 28288 e9450a2416284b157ecb7115107accad
+f 'driver/CH341S64.SYS' 69016 1348fa389569d1e31770d7c3e63545bc
+f 'driver/CH341SER.INF' 7405 35e7c67a6522ded6611ede19c37241c5
+f 'driver/CH341PT.DLL' 15320 7d1ef8c5ba7151a98cd694f522a0be6c
+f 'delsub.opsiscript' 2726 e49e4cfdfa35f30a69121ad77126b06d
+f 'setup.opsiscript' 3178 8570e7849d45975968cba76079e33a44
+f 'uninstall.opsiscript' 2343 83c3c2767d7e2e9099fa18444301d892
+f 'check_msi_exitcode.opsiscript' 10336 8946f92e45882ff10bde9011eae69a09
+f '.gitignore' 18 589a00eba6e5611e72bf5e70e9971559
